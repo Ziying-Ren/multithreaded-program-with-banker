@@ -36,7 +36,7 @@ int request_resources(int customer_num, int request[]) {
 	int SAFE_FLAG = TRUE;
 	int WAIT_FLAG = FALSE;
 	for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
-		if (request[i] > need[customer_num[i]]) {
+		if (request[i] > need[customer_num][i]) {
 			SAFE_FLAG = FALSE;
 			break;
 		} else
