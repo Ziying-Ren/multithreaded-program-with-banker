@@ -1,7 +1,7 @@
 # multithreaded-program-with-banker
 Write a multi-threaded program that implements the banker's algorithm.
 
-Project Title: CP386 Assignment 4
+Project Title: 		CP386 Assignment 4
 ---
 
 Motivation
@@ -26,16 +26,33 @@ int request_resources(int customer_num, int requests[]) <br>
 void release_resources(int customer_num, int release[]) <br>
 int main()
 
-Features
----
-
 Tests
 ---
 Test with the gcc compiler (version 5.4.0) in a Linux environment <br>
 
 Code Examples
 ---
+```c
+int request_resources(int customer_num, int request[]) {
 
+	for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
+		available[i] -= request[i];
+		allocation[customer_num][i] += request[i];
+		need[customer_num][i] -= request[i];
+	}
+	if (!safe_state(available, customer_num, request[i])) {
+		// Roll back the result
+		for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
+			available[i] += request[i];
+			allocation[customer_num][i] -= request[i];
+			need[customer_num][i] += request[i];
+		}
+		return -1;
+	} else {
+		return 0;
+	}
+}
+```
 
 ```c
 void release_resources(int customer_num, int release[]) {
