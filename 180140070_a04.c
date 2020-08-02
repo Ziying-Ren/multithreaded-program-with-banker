@@ -7,7 +7,7 @@
  Author:   Ziying Ren
  ID:       180140070
  GitHub login ID:         Ziying-Ren
- Github repository URL:
+ Github repository URL:   https://github.com/Ziying-Ren/multithreaded-program-with-banker
  Email:   renx0070@mylaurier.ca
  Version  2020-07-20
  -------------------------------------
