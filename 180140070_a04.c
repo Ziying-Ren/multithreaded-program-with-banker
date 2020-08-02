@@ -27,12 +27,14 @@ int maximum[NUMBER_OF_CUSTOMERS][NUMBER_OF_RESOURCES];
 int allocation[NUMBER_OF_CUSTOMERS][NUMBER_OF_RESOURCES];
 int need[NUMBER_OF_CUSTOMERS][NUMBER_OF_RESOURCES];
 
+int safe_state(int available, int customer_num, int request[]);
 int request_resources(int customer_num, int requests[]);
 void release_resources(int customer_num, int release[]);
 
-int request_resources(int customer_num, int request[]) {
 // Handle the allocation task
 // If Request_i < Need_i, output unsafe
+
+int safe_state(int available, int customer_num, int request[]) {
 	int SAFE_FLAG = TRUE;
 	int WAIT_FLAG = FALSE;
 	for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
@@ -56,13 +58,16 @@ int request_resources(int customer_num, int request[]) {
 	if (WAIT_FLAG == TRUE) {
 		return -1;
 	}
-// Try to change the situation
+}
+
+int request_resources(int customer_num, int request[]) {
+
 	for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
 		available[i] -= request[i];
 		allocation[customer_num][i] += request[i];
 		need[customer_num][i] -= request[i];
 	}
-	if (!safe_state(available)) {
+	if (!safe_state(available, customer_num, request[i])) {
 		// Roll back the result
 		for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
 			available[i] += request[i];
@@ -95,8 +100,7 @@ void release_resources(int customer_num, int release[]) {
 }
 
 int main() {
-	while (1) 
-	{
+	while (1) {
 		char buf[100];
 		char c;
 		int i = 0;
@@ -123,4 +127,3 @@ int main() {
 		}
 	}
 }
-
