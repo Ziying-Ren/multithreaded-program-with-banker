@@ -30,9 +30,9 @@ int need[NUMBER_OF_CUSTOMERS][NUMBER_OF_RESOURCES];
 int request_resources(int customer_num, int requests[]);
 void release_resources(int customer_num, int release[]);
 
+int request_resources(int customer_num, int request[]) {
 // Handle the allocation task
 // If Request_i < Need_i, output unsafe
-int request_resources(int customer_num, int request[]) {
 	int SAFE_FLAG = TRUE;
 	int WAIT_FLAG = FALSE;
 	for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
@@ -56,7 +56,7 @@ int request_resources(int customer_num, int request[]) {
 	if (WAIT_FLAG == TRUE) {
 		return -1;
 	}
-
+// 
 	for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
 		available[i] -= request[i];
 		allocation[customer_num][i] += request[i];
@@ -95,30 +95,32 @@ void release_resources(int customer_num, int release[]) {
 }
 
 int main() {
-	char buf[100];
-	char c;
-	int i = 0;
-	while ((c = getchar()) != (int) '\n')
-		buf[i++] = c;
-	if (buf[0] == 'R' && buf[1] == 'Q') {
-		int customer_index;
-		int require[NUMBER_OF_RESOURCES];
-		char type[2];
-		char *pointer = (buf + 3);
-		sscanf(pointer, "%d", &customer_index); //Read the index first
-		pointer += 2;
-		for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
-			sscanf(pointer, "%d", &require[i]);
+	while (1) 
+	{
+		char buf[100];
+		char c;
+		int i = 0;
+		while ((c = getchar()) != (int) '\n')
+			buf[i++] = c;
+		if (buf[0] == 'R' && buf[1] == 'Q') {
+			int customer_index;
+			int require[NUMBER_OF_RESOURCES];
+			char type[2];
+			char *pointer = (buf + 3);
+			sscanf(pointer, "%d", &customer_index); //Read the index first
 			pointer += 2;
+			for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
+				sscanf(pointer, "%d", &require[i]);
+				pointer += 2;
+			}
+			if (request_resources(customer_index, require) == 0) {
+				printf("This situation is safe, accepted.\n");
+				continue;
+			} else {
+				fprintf(stderr, "This request is unsafe, denied.\n");
+				continue;
+			}
 		}
-		if (request_resources(customer_index, require) == 0) {
-			printf("This situation is safe, accepted.\n");
-			continue;
-		} else {
-			fprintf(stderr, "This request is unsafe, denied.\n");
-			continue;
-		}
-
 	}
 }
 
