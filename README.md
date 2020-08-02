@@ -10,12 +10,21 @@ Write a multithreaded program the implements the banker's algorithm for solving 
 
 Installation
 ---
+Software Tools:<br>
+VitualBox 6.1.6 <br>
+Ubuntu machine <br>
 
 Screenshots
 ---
+[![Screenshot1.jpg](https://i.postimg.cc/mrykg0CY/Screenshot1.jpg)](https://postimg.cc/SXjkZ1ZR)<br>
+[![Screenshot2.jpg](https://i.postimg.cc/NFSfnYvc/Screenshot2.jpg)](https://postimg.cc/K372K6Yq)
 
-Individual contribution (Function-wise)
+Individual contribution (Function-wise) 
 ---
+Ziying Ren: <br>
+int request_resources(int customer_num, int requests[]) <br>
+void release_resources(int customer_num, int release[]) <br>
+int main()
 
 Features
 ---
@@ -27,6 +36,27 @@ Test with the gcc compiler (version 5.4.0) in a Linux environment <br>
 Code Examples
 ---
 
+
+```c
+void release_resources(int customer_num, int release[]) {
+	for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
+		//Try to release all resources
+		available[i] += release[i];
+		allocation[customer_num][i] -= release[i];
+		need[customer_num][i] += release[i];
+		if (allocation[customer_num][i] < 0) //If don't have so much resources.
+				{
+			fprintf(stderr, "This release request is invaild! denied.\n");
+			for (int j = 0; j < i; j++) {
+				available[i] -= release[i];
+				allocation[customer_num][i] += release[i];
+				need[customer_num][i] -= release[i];
+			}
+			return;
+		}
+	}
+}
+```
 Authors
 ---
 @Ziying Ren
