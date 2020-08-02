@@ -56,7 +56,7 @@ int request_resources(int customer_num, int request[]) {
 	if (WAIT_FLAG == TRUE) {
 		return -1;
 	}
-// 
+// Try to change the situation
 	for (int i = 0; i < NUMBER_OF_RESOURCES; i++) {
 		available[i] -= request[i];
 		allocation[customer_num][i] += request[i];
